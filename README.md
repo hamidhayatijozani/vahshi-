@@ -1,52 +1,30 @@
 # vahshi-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>KhoarForex Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <h2>KhoarForexSystem Live Dashboard</h2>
-  <canvas id="priceChart" width="800" height="400"></canvas>
-  <div id="signalBox"></div>
 
-  <script>
-    const ctx = document.getElementById('priceChart').getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'EURUSD Price',
-          data: [],
-          borderColor: 'blue',
-          fill: false
-        }]
-      }
-    });
+> **Repository status:** Historical / experimental trading-dashboard artifact.
+>
+> The current canonical research and provenance record is **[HamidCognition-Unified](https://github.com/hamidhayatijozani/HamidCognition-Unified)**. This repository is preserved as part of the project's historical lineage and remains citable by exact commit/path.
 
-    const signalBox = document.getElementById('signalBox');
+## جایگاه پژوهشی
 
-    // اتصال به WebSocket سرور
-    const ws = new WebSocket("ws://localhost:8765");
+این repository شامل یک dashboard آزمایشی برای EUR/USD و اتصال WebSocket است. وجود این کد به‌تنهایی اعتبار سیگنال، confidence یا عملکرد معاملاتی را اثبات نمی‌کند.
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      const time = new Date(data.timestamp).toLocaleTimeString();
+## Historical artifact
 
-      // اضافه کردن داده جدید به نمودار
-      chart.data.labels.push(time);
-      chart.data.datasets[0].data.push(data.price);
-      chart.update();
+کد ثبت‌شده در این نسخه شامل:
 
-      // نمایش سیگنال نهایی
-      signalBox.innerHTML = `
-        <p><strong>Action:</strong> ${data.final_decision.action}</p>
-        <p><strong>Confidence:</strong> ${data.final_decision.confidence}</p>
-        <p><strong>Warnings:</strong> ${data.warnings}</p>
-      `;
-    };
-  </script>
-</body>
-</html>
+- Chart.js dashboard
+- WebSocket connection به `ws://localhost:8765`
+- نمایش price history
+- نمایش `final_decision.action`
+- نمایش `final_decision.confidence`
+- نمایش warnings
+
+برای بازسازی، endpoint و payload واقعی WebSocket باید مستقل تأیید و ثبت شوند.
+
+## Citation
+
+برای استناد به این artifact، `vahshi-` و commit/path دقیق را مشخص کنید. برای وضعیت فعلی پژوهش و provenance از Unified استفاده کنید.
+
+**Canonical research record:** https://github.com/hamidhayatijozani/HamidCognition-Unified
+
+**Originator:** Hamid Hayati Jozani

@@ -3,10 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Protocol
 
+from iadp.diagnostics.dtc import decode_uds_report_dtc
 from iadp.protocols.uds import (
     DiagnosticSessionType,
     make_diagnostic_session_control,
     make_read_data_by_identifier,
+    make_read_dtc_information,
     make_tester_present,
     parse_negative_response,
     require_positive_response,
@@ -37,6 +39,10 @@ class DiagnosticSession:
     def read_data_by_identifier(self, did: int) -> bytes:
         response = self.exchange.request(make_read_data_by_identifier(did))
         return require_positive_response(0x22, response)
+
+    def read_dtcs(self, sub_function: int = 0x02):
+        response = self.exchange.request(make_read_dtc_information(sub_function))
+        return decode_uds_report_dtc(require_positive_response(0x19, response))
 
     @staticmethod
     def negative_response(response: bytes):

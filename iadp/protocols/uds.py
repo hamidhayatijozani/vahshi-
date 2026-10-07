@@ -89,4 +89,8 @@ def make_read_dtc_information(sub_function: int = 0x02) -> bytes:
 
 
 def is_response_pending(response: bytes) -> bool:
-    return len(response) >= 3 and response[:2] == bytes((0x7F, 0x00 | response[1])) and response[2] == 0x78
+    return (
+        len(response) >= 3
+        and response[0] == 0x7F
+        and response[2] == 0x78
+    )

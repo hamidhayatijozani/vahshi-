@@ -10,6 +10,7 @@ from hashlib import sha256
 class DiagnosticReport:
     vehicle_id: str | None = None
     vin: str | None = None
+    generated_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     ecu_identities: list[dict] = field(default_factory=list)
     dtcs: list[dict] = field(default_factory=list)
     measurements: list[dict] = field(default_factory=list)
@@ -26,7 +27,7 @@ class DiagnosticReport:
 
     def snapshot(self) -> dict:
         return {
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": self.generated_at,
             "vehicle_id": self.vehicle_id,
             "vin": self.vin,
             "ecu_identities": self.ecu_identities,

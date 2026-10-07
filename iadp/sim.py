@@ -31,6 +31,11 @@ class VirtualEcu:
                 return b"\x7F\x22\x31"
             return bytes((0x62, payload[1], payload[2])) + value
 
+        if sid == 0x19 and len(payload) == 2:
+            if payload[1] == 0x02:
+                return bytes.fromhex("59 02 FF 01 23 45 2F")
+            return bytes((0x7F, 0x19, 0x12))
+
         if sid == 0x01 and len(payload) == 2:
             pid = payload[1]
             if pid == 0x0C:

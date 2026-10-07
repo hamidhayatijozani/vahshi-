@@ -1,30 +1,21 @@
-# vahshi-
+# Iran AutoDiag Platform (IADP)
 
-> **Repository status:** Historical / experimental trading-dashboard artifact.
->
-> The current canonical research and provenance record is **[HamidCognition-Unified](https://github.com/hamidhayatijozani/HamidCognition-Unified)**. This repository is preserved as part of the project's historical lineage and remains citable by exact commit/path.
+> Automotive diagnostic platform foundation for vehicles commonly encountered in Iran.
 
-## جایگاه پژوهشی
+This repository was previously a historical experimental trading-dashboard artifact. That artifact remains in Git history; the active development branch is being repurposed for IADP.
 
-این repository شامل یک dashboard آزمایشی برای EUR/USD و اتصال WebSocket است. وجود این کد به‌تنهایی اعتبار سیگنال، confidence یا عملکرد معاملاتی را اثبات نمی‌کند.
+## Scope
+- OBD-II / SAE J1979
+- CAN / CAN-FD abstraction
+- ISO-TP / ISO 15765-2
+- UDS / ISO 14229
+- KWP2000 and legacy transport boundaries
+- ELM327, SocketCAN, J2534 and future adapters
+- ECU identification, VIN, DTC, live data and diagnostic sessions
+- Vehicle/ECU knowledge base with evidence provenance
+- Deterministic simulation and replay before hardware
 
-## Historical artifact
+## Engineering rule
+Protocol implementations are separated from adapters and vehicle-specific data. No vehicle-specific CAN IDs, DIDs, security algorithms or service behavior are accepted as facts without provenance and verification status.
 
-کد ثبت‌شده در این نسخه شامل:
-
-- Chart.js dashboard
-- WebSocket connection به `ws://localhost:8765`
-- نمایش price history
-- نمایش `final_decision.action`
-- نمایش `final_decision.confidence`
-- نمایش warnings
-
-برای بازسازی، endpoint و payload واقعی WebSocket باید مستقل تأیید و ثبت شوند.
-
-## Citation
-
-برای استناد به این artifact، `vahshi-` و commit/path دقیق را مشخص کنید. برای وضعیت فعلی پژوهش و provenance از Unified استفاده کنید.
-
-**Canonical research record:** https://github.com/hamidhayatijozani/HamidCognition-Unified
-
-**Originator:** Hamid Hayati Jozani
+See ARCHITECTURE.md and docs/ROADMAP.md.

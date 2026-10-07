@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"IADP Diagnostic Record",
+  "type":"object",
+  "required":["record_type","verification","source"],
+  "properties":{
+    "record_type":{"type":"string"},
+    "vehicle":{"type":["string","null"]},
+    "ecu":{"type":["string","null"]},
+    "protocol":{"type":["string","null"]},
+    "transport":{"type":["string","null"]},
+    "request_hex":{"type":["string","null"]},
+    "response_hex":{"type":["string","null"]},
+    "source":{"type":"string"},
+    "verification":{"enum":["observed","verified","inferred","unknown"]},
+    "confidence":{"type":"number","minimum":0,"maximum":1}
+  }
+}

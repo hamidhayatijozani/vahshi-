@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IADP Vehicle Knowledge Record",
+  "type": "object",
+  "required": ["id", "manufacturer", "model", "evidence_state"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9._-]+$"},
+    "manufacturer": {"type": "string"},
+    "model": {"type": "string"},
+    "model_year_from": {"type": ["integer", "null"], "minimum": 1900},
+    "model_year_to": {"type": ["integer", "null"], "minimum": 1900},
+    "engine": {"type": ["string", "null"]},
+    "ecu_families": {"type": "array", "items": {"type": "string"}},
+    "protocols": {
+      "type": "array",
+      "items": {"enum": ["OBD-II", "CAN", "CAN-FD", "ISO-TP", "UDS", "KWP2000", "J2534", "ELM327"]}
+    },
+    "evidence_state": {
+      "enum": ["observed", "verified", "inferred", "unknown"]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "observed_at"],
+        "properties": {
+          "source": {"type": "string"},
+          "observed_at": {"type": "string"},
+          "vehicle_scope": {"type": ["string", "null"]},
+          "raw_evidence": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

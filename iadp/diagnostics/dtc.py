@@ -46,3 +46,15 @@ def normalize_uds_dtc(raw_dtc: bytes, status: int | None = None) -> DiagnosticTr
         raw=raw_dtc,
         status=status,
     )
+
+
+def decode_uds_report_dtc(response: bytes) -> list[DiagnosticTroubleCode]:
+    if len(response) < 3 or response[:2] != b"\x59\x02":
+        raise ValueError("unsupported UDS DTC response")
+    records = response[3:]
+    if len(records) % 4:
+        raise ValueError("UDS DTC record payload is not aligned")
+    return [
+        normalize_uds_dtc(records[i : i + 3], records[i + 3])
+        for i in range(0, len(records), 4)
+    ]

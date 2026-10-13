@@ -14,9 +14,11 @@ class TestIsoTpChannel(unittest.TestCase):
 
     def test_multi_frame_response_sends_flow_control(self):
         bus = MemoryCanTransport()
+        # Classic CAN frames carry at most 8 bytes: the first frame has a
+        # 2-byte PCI plus 6 payload bytes, followed by a consecutive frame.
         bus.queue(
-            CanFrame(0x7E8, b"\x10\x0Aabcdefgh"),
-            CanFrame(0x7E8, b"\x21ij"),
+            CanFrame(0x7E8, b"\x10\x0Aabcdef"),
+            CanFrame(0x7E8, b"\x21ghij"),
         )
         response = IsoTpChannel(bus, 0x7E0, 0x7E8).request(b"\x22\xF1\x90")
         self.assertEqual(response, b"abcdefghij")
